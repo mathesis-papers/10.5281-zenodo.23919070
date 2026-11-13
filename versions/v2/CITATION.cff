@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this work, cite it."
+title: "MathOverflow 516405, revision 1: the second adjacency eigenvalue of Apollonian networks and the fixed-rank extreme spectrum"
+authors:
+  - name: "Haobo Ma"
+  - name: "Wenlin Zhang"
+date-released: "2026-11-05"
+version: "2"
+url: "https://mathesis-omega-research.apps.chrono-ai.fun/papers/radsarar-anando-2026-apollonian-second-eigenvalue?version=2"
+doi: "10.5281/zenodo.23919071"
+license: "CC-BY-4.0"

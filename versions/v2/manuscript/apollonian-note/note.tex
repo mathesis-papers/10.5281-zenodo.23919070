@@ -1,0 +1,383 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=26mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,array}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\setlength{\emergencystretch}{3em}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\upstream}[2]{\href{https://github.com/the-omega-institute/trureturing/blob/66d225eda69544653f1ca0e66cf3aea530b1a2c6/D5/S3/Combinatorics/Apollonian/#1.lean}{\texttt{#2}}}
+\title{MathOverflow 516405, revision 1:\\
+the second adjacency eigenvalue of Apollonian networks\\
+and the fixed-rank extreme spectrum}
+\author{Haobo Ma\\\small ChronoAI Pte Ltd, Singapore
+\and Wenlin Zhang\\\small National University of Singapore\\\small ChronoAI Pte Ltd, Singapore}
+\date{November 2, 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We give an affirmative answer to the second-adjacency-eigenvalue question in
+Rad Sarar Anando's MathOverflow question 516405, revision 1:
+$\theta_2(G_m)/2^{m/2}\to\sqrt2$ for deterministic Apollonian networks
+formed by subdividing every inner face and leaving the outer face unchanged.
+The same argument determines every fixed-rank eigenvalue at both ends of the
+ordinary adjacency spectrum. The squared limiting positive values are $3$,
+three copies of $2$, and $3^j$ copies of $3\cdot2^{-j}$ for each $j\ge1$.
+An exact cutoff Gram identity gives a finite-stage error bound and an
+$O_r(2^{-m/4})$ convergence rate at each fixed rank $r$.
+The original second-eigenvalue limit has a pinned Lean declaration; the
+fixed-rank extension and error estimates are proved here in writing.
+\end{abstract}
+\begin{center}\small
+\copyright\ 2026 Haobo Ma and Wenlin Zhang.
+Licensed under \href{https://creativecommons.org/licenses/by/4.0/}{CC BY 4.0}.
+\end{center}
+
+\section{The question and the extreme eigenvalues}
+MathOverflow question 516405, revision 1, posted by Rad Sarar Anando on
+October 26, 2026 \cite{anando}, asks whether
+$\theta_2(G_m)/2^{m/2}\to\sqrt2$. Here $G_0$ is a plane $K_4$ with outer
+vertices $a,b,c$ and centre $o$. To obtain $G_{m+1}$, insert one vertex
+in each inner triangular face of $G_m$ and join it to the face's three
+corners. Retain every old edge and never subdivide the outer face.
+Write $A_m$ for ordinary unweighted adjacency, $N_m=|V(G_m)|$, and
+\[
+\theta_1(G_m)\ge\theta_2(G_m)\ge\cdots\ge\theta_{N_m}(G_m)
+\]
+for its real eigenvalues with multiplicity. All matrix norms below are
+Euclidean operator norms.
+
+Let $d_1\ge d_2\ge\cdots$ enumerate the multiset
+\begin{equation}\label{eq:weights}
+\{3\}\;\cup\;\{2,2,2\}\;\cup\;
+\bigcup_{j\ge1}\{3\cdot2^{-j}\text{ repeated }3^j\text{ times}\}.
+\end{equation}
+Its ordering is unambiguous because the values after $2$ strictly decrease.
+
+\begin{theorem}\label{thm:limits}
+For every fixed positive integer $r$,
+\begin{equation}\label{eq:limits}
+\frac{\theta_r(G_m)}{2^{m/2}}\longrightarrow\sqrt{d_r},
+\qquad
+\frac{\theta_{N_m+1-r}(G_m)}{2^{m/2}}\longrightarrow-\sqrt{d_r}.
+\end{equation}
+Both convergences have error $O_r(2^{-m/4})$.
+In particular, the first four positive limits are
+$\sqrt3,\sqrt2,\sqrt2,\sqrt2$, and ranks $5,6,7$ have limit $\sqrt{3/2}$.
+\end{theorem}
+
+This also answers the source's question about other leading eigenvalues.
+Frieze and Tsourakakis \cite[Theorem 2]{frieze} prove the analogous
+square-root-of-degree relation with high probability for random Apollonian
+networks, where one face is chosen at each insertion. Their random model
+is different from simultaneous subdivision of all inner faces.
+Earlier spectral work includes Andrade and Miranda \cite{andrade}, and
+Cardoso, Andrade and Souza \cite{cardoso}, whose uniform tight-binding
+operator is proportional to adjacency. Serva's exactly solvable model
+\cite{serva} instead regularizes the outer-face asymmetry and uses
+degree-normalized hopping. Its spectrum does not give the constants in
+\eqref{eq:limits}. The original second-eigenvalue limit is covered by
+the pinned Lean declaration \cite{source}. The complete cutoff matrix
+argument below gives the fixed-rank and quantitative consequences.
+
+\section{Counts and a uniform remainder bound}
+Initially there are three inner faces, and every subdivision replaces one
+inner face by three. Thus there are $3^{m+1}$ inner faces at stage $m$,
+exactly $3^j$ vertices are born at stage $j\ge1$, and
+\begin{equation}\label{eq:degrees}
+N_m=\frac{3^{m+1}+5}{2},\qquad
+\deg_m(o)=3\cdot2^m,\qquad
+\deg_m(a)=\deg_m(b)=\deg_m(c)=2^{m+1}+1.
+\end{equation}
+Indeed, every inner face incident with a persistent vertex gives two
+incident child faces and adds one neighbour. The centre starts with three
+incident inner faces, and each outer corner starts with two. A vertex
+born at stage $j\ge1$ starts with degree and inner-face count both equal
+to three, so its degree at stage $m\ge j$ is
+\begin{equation}\label{eq:innerdegree}
+\deg_m(v)=3\cdot2^{m-j}.
+\end{equation}
+These recurrences prove all the displayed counts directly.
+
+Fix $0\le k<m$, put $H=V(G_k)$ and $L=V(G_m)\setminus H$, and order
+the adjacency matrix by $H,L$. No later operation adds edges between
+persistent vertices. Hence
+\begin{equation}\label{eq:split}
+A_m=P_{m,k}+\operatorname{diag}(A_k,C_{m,k}),\qquad
+P_{m,k}=\begin{pmatrix}0&B_{m,k}\\B_{m,k}^{T}&0\end{pmatrix},
+\end{equation}
+where $B_{m,k}$ is old-to-late adjacency and $C_{m,k}$ is adjacency
+induced on $L$.
+
+\begin{lemma}\label{lem:norms}
+For $0\le k<m$,
+\begin{equation}\label{eq:norms}
+\norm{A_k}\le6\,2^{k/2},\qquad
+\frac{\norm{C_{m,k}}}{2^{m/2}}
+\le3\sqrt2\,2^{-k/2}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+If an undirected graph admits an orientation with outdegrees at most
+$p$ and indegrees at most $q$, its adjacency matrix $C$ satisfies
+\[
+|x^TCx|\le2\sum_{u\to v}|x_u x_v|
+\le2\Big(\sum_{u\to v}x_u^2\Big)^{1/2}
+       \Big(\sum_{u\to v}x_v^2\Big)^{1/2}
+\le2\sqrt{pq}\,\norm{x}^2.
+\]
+Since $C$ is symmetric, $\norm{C}\le2\sqrt{pq}$.
+Orient every nonseed edge from its newer to its older endpoint.
+Every nonseed vertex has precisely three older neighbours, and there
+are no edges within a nonseed birth generation.
+In $G_k$, order the four seed vertices and orient their edges toward
+the earlier vertex. All outdegrees are then at most three. By
+\eqref{eq:degrees}--\eqref{eq:innerdegree}, all indegrees are at most
+$3\cdot2^k$, including $k=0$. This gives the first bound.
+
+On $L$, all births are at least $k+1$, so every degree, and hence every
+indegree, is at most $3\cdot2^{m-k-1}$. The outdegree bound remains
+three. Therefore
+$\norm{C_{m,k}}\le6\,2^{(m-k-1)/2}$; dividing by $2^{m/2}$ gives
+the second bound.
+\end{proof}
+
+\section{An exact cutoff Gram identity}
+For $v\in H$ let $f_k(v)$ be its incident inner-face count at stage $k$.
+Let $F_k$ be the symmetric matrix with zero diagonal whose entry
+$F_k(u,v)$, for $u\ne v$, is the number of inner faces containing both
+$u$ and $v$. Put
+\[
+D_k=\operatorname{diag}\bigl(2^{-k}f_k(v):v\in H\bigr),\qquad
+Q_{m,k}=2^{-m}B_{m,k}B_{m,k}^T.
+\]
+The entries of $D_k$ are $3$ for $o$, $2$ for each outer vertex, and
+$3\cdot2^{-j}$ for a vertex born at stage $j\le k$.
+
+\begin{lemma}\label{lem:gram}
+Writing $t=m-k$, one has
+\begin{equation}\label{eq:gram}
+Q_{m,k}=(1-2^{-t})D_k+t\,2^{-m}F_k,
+\qquad
+\norm{Q_{m,k}-D_k}\le3(1+2t)2^{-t}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+The diagonal entry of $B_{m,k}B_{m,k}^T$ at $v$ counts its neighbours
+born after $k$. The successive increments are
+$f_k(v),2f_k(v),\ldots,2^{t-1}f_k(v)$, summing to
+$(2^t-1)f_k(v)$.
+
+For distinct $u,v\in H$, its $(u,v)$ entry counts their common late
+neighbours. A new common neighbour is born precisely in a face
+containing both vertices. Such a face is a triangle, so $u,v$ must
+already be adjacent. Under subdivision, exactly one child of that face
+still contains both $u$ and $v$. The number of faces containing the
+pair is therefore unchanged at each later stage. Each of the $t$
+subdivisions contributes exactly $F_k(u,v)$ common neighbours, giving
+the off-diagonal entry $tF_k(u,v)$. These identities prove the matrix
+formula in \eqref{eq:gram}.
+
+Every inner face incident with $v$ has exactly two other corners.
+Consequently the row sum of $F_k$ at $v$ is $2f_k(v)$.
+The degree recurrences give $f_k(v)\le3\cdot2^k$, so the symmetric
+nonnegative matrix $F_k$ has $\norm{F_k}\le6\cdot2^k$.
+For completeness, a symmetric nonnegative matrix with row sums at most
+$M$ satisfies
+$|x^TF_kx|\le\sum_{u,v}F_k(u,v)(x_u^2+x_v^2)/2\le M\norm{x}^2$.
+Finally $\norm{D_k}=3$, whence
+\[
+\norm{Q_{m,k}-D_k}\le3\,2^{-t}+6t\,2^{k-m}
+=3(1+2t)2^{-t}.
+\]
+\end{proof}
+
+We use two elementary spectral facts. For symmetric matrices of the same
+size, decreasing eigenvalues satisfy
+\begin{equation}\label{eq:weyl}
+|\lambda_r(X+E)-\lambda_r(X)|\le\norm{E}.
+\end{equation}
+Indeed,
+$\lambda_r(X)=\max_{\dim U=r}\min_{x\in U,\,\norm{x}=1}x^TXx$:
+the span of the first $r$ eigenvectors gives one inequality, and every
+$r$-dimensional subspace intersects the span of eigenvectors numbered
+$r,\ldots,n$ nontrivially, giving the other.
+On the unit sphere $|x^TEx|\le\norm{E}$, which proves
+\eqref{eq:weyl}.
+
+Second, the nonzero eigenvalues of
+$\left(\begin{smallmatrix}0&B\\B^T&0\end{smallmatrix}\right)$ are
+$\pm\sqrt\mu$, where $\mu$ ranges over the positive eigenvalues of
+$BB^T$, with multiplicity. If $BB^Tv=\mu v$, the vectors
+$(v,\pm B^Tv/\sqrt\mu)$ give these eigenvalues, and the eigenvector
+equations give the converse. Symmetry makes geometric and algebraic
+multiplicities equal. If $B$ has $q$ rows, $\ell$ columns and rank $p$,
+the remaining $q+\ell-2p$ eigenvalues are zero. Since $p\le\ell$, the
+first $q$ decreasing eigenvalues of this dilation are the square roots
+of the $q$ decreasing eigenvalues of $BB^T$, including zeros.
+The last $q$ eigenvalues, read upward from the bottom, are their
+negatives.
+
+\section{Finite-stage errors and the limiting spectrum}
+The first $N_k$ entries of the infinite sequence \eqref{eq:weights}
+are exactly the decreasing diagonal entries of $D_k$.
+
+\begin{theorem}\label{thm:error}
+For $0\le k<m$, $1\le r\le N_k$, and $t=m-k$, define
+\begin{equation}\label{eq:error}
+E_{m,k,r}=\max\{6\,2^{-t/2},\,3\sqrt2\,2^{-k/2}\}
++\frac{3(1+2t)2^{-t}}{\sqrt{d_r}}.
+\end{equation}
+Then
+\[
+\left|\frac{\theta_r(G_m)}{2^{m/2}}-\sqrt{d_r}\right|\le E_{m,k,r},
+\qquad
+\left|\frac{\theta_{N_m+1-r}(G_m)}{2^{m/2}}+\sqrt{d_r}\right|
+\le E_{m,k,r}.
+\]
+\end{theorem}
+\begin{proof}
+Let $\mu_r$ be the $r$th decreasing eigenvalue of the positive
+semidefinite matrix $Q_{m,k}$. Lemma~\ref{lem:gram} and
+\eqref{eq:weyl} give
+$|\mu_r-d_r|\le\delta_t:=3(1+2t)2^{-t}$.
+Since $\mu_r\ge0$ and $d_r>0$,
+\[
+|\sqrt{\mu_r}-\sqrt{d_r}|
+=\frac{|\mu_r-d_r|}{\sqrt{\mu_r}+\sqrt{d_r}}
+\le\frac{\delta_t}{\sqrt{d_r}}.
+\]
+The dilation identity identifies the first and last $r$th eigenvalues
+of $2^{-m/2}P_{m,k}$ with $\sqrt{\mu_r}$ and $-\sqrt{\mu_r}$.
+The perturbation in \eqref{eq:split} is block diagonal, with norm
+exactly $\max\{\norm{A_k},\norm{C_{m,k}}\}$.
+After division by $2^{m/2}$, Lemma~\ref{lem:norms} bounds it by the
+maximum term in \eqref{eq:error}. Apply \eqref{eq:weyl} at each
+end of the spectrum and use the triangle inequality.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:limits}]
+Choose $k$ with $N_k\ge r$ and let $m\to\infty$ in
+Theorem~\ref{thm:error}. Each upper limit of the two nonnegative
+errors is at most $3\sqrt2\,2^{-k/2}$. Letting $k\to\infty$
+proves \eqref{eq:limits} along all natural stages.
+For the rate, instead take $k=\lfloor m/2\rfloor$, so $N_k\ge r$
+for every sufficiently large $m$. The maximum term is
+$O(2^{-m/4})$, and the final term is
+$O_r(m2^{-m/2})=O_r(2^{-m/4})$. This gives the asserted rate.
+\end{proof}
+
+\begin{corollary}\label{cor:degrees}
+Let $\Delta_r(G_m)$ be the $r$th largest degree, with multiplicity.
+For every fixed $r$,
+\[
+\frac{\theta_r(G_m)}{\sqrt{\Delta_r(G_m)}}\longrightarrow1,
+\qquad
+\frac{\theta_{N_m+1-r}(G_m)}{\sqrt{\Delta_r(G_m)}}\longrightarrow-1.
+\]
+\end{corollary}
+\begin{proof}
+For $m\ge2$ the degrees are ordered by the centre, the three outer
+vertices, and then increasing birth generation. Their formulas in
+\eqref{eq:degrees}--\eqref{eq:innerdegree} give
+$2^{-m}\Delta_r(G_m)\to d_r>0$ for every fixed $r$.
+Divide the two limits in Theorem~\ref{thm:limits} by
+$\sqrt{2^{-m}\Delta_r(G_m)}$.
+\end{proof}
+
+\section{Source coverage and verification}
+The following coverage refers to the deterministic ordinary adjacency
+operator and the unchanged outer face throughout.
+\begin{center}\small
+\begin{tabular}{@{}p{0.47\linewidth}p{0.46\linewidth}@{}}
+\toprule
+Item in MathOverflow 516405, revision 1 & Coverage here\\
+\midrule
+Question: second eigenvalue limit $\sqrt2$ & Theorem~\ref{thm:limits}, $r=2$.\\
+Equivalent upper-limit formulation & Full limit proved, hence the upper limit equals $\sqrt2$.\\
+Observation: $\theta_1^2$ follows the central degree & Corollary~\ref{cor:degrees}, $r=1$.\\
+Question about other leading eigenvalues & Every fixed rank, both spectral ends; Theorems~\ref{thm:limits} and~\ref{thm:error}.\\
+Random Apollonian square-root pattern & Prior probabilistic theorem \cite[Theorem 2]{frieze}; a different graph model.\\
+Posted finite-stage bounds and numerical values & Not premises of the proof; the bounds in Theorem~\ref{thm:error} are derived directly.\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The declaration
+\upstream{SecondEigenvalueLimit}{SecondEigenvalueLimit.result}
+formalizes precisely the original second-largest ordinary adjacency
+limit for the inner-face graph construction, along every natural stage
+and with eigenvalue multiplicity.
+The companion files have the following roles:
+\upstream{InnerFaceStages}{InnerFaceStages} defines the finite graph,
+births and faces and derives its degree and common-neighbour laws;
+\upstream{CutoffSpectralBounds}{CutoffSpectralBounds.late\_adjacency\_normalized\_le}
+gives the normalized late-block estimate;
+\upstream{CutoffGramLimit}{CutoffGramLimit.normalized\_gram\_tendsto}
+gives fixed-cutoff Gram convergence; and
+\upstream{CutoffOrderedSpectrum}{CutoffOrderedSpectrum.cutoff\_second\_eq\_sqrt\_gram}
+gives the second Gram-to-dilation identity under its positive-Gram-eigenvalue
+hypothesis. The fixed-rank limits, exact identity \eqref{eq:gram},
+finite-stage estimate \eqref{eq:error}, rate and degree corollary have
+written proofs above; they are not asserted as additional Lean declarations.
+
+The accompanying \texttt{verify.py} checks graph counts, all vertex degrees,
+face incidence, the exact integer cutoff Gram identity, and directed
+degree bounds for stages $0$ through $8$ and $26$ cutoff--stage pairs
+with cutoffs at most $3$. The largest graph has $9{,}844$ vertices.
+It also computes up to eight eigenvalues at each spectral end; the
+maximum absolute eigenpair residual is below $2.2\cdot10^{-11}$.
+These finite checks test the formulas; the infinite limits follow
+from the written proof. The argument concerns fixed ranks, not ranks
+growing with $m$, and does not identify a full empirical spectral
+distribution or a normalized-adjacency or Laplacian spectrum.
+
+\begin{thebibliography}{9}
+\bibitem{anando}
+Rad Sarar Anando,
+\emph{Second adjacency eigenvalue of Apollonian networks: is
+$\theta_2(G_m)/2^{m/2}\to\sqrt2$?}
+MathOverflow question 516405, revision 1, October 26, 2026.
+\href{https://mathoverflow.net/questions/516405}{Question};
+\href{https://mathoverflow.net/revisions/8C9D6CD5-E3A3-4B25-BDB6-FF5A9A3D3A2B/view-source}{revision source}.
+
+\bibitem{andrade}
+R. F. S. Andrade and J. G. V. Miranda,
+Spectral properties of the Apollonian network,
+\emph{Physica A} \textbf{356} (2005), 1--5.
+\href{https://doi.org/10.1016/j.physa.2005.05.003}{doi:10.1016/j.physa.2005.05.003}.
+
+\bibitem{cardoso}
+A. L. Cardoso, R. F. S. Andrade and A. M. C. Souza,
+Localization properties of a tight-binding electronic model on the
+Apollonian network, \emph{Phys. Rev. B} \textbf{78} (2008), 214202.
+\href{https://doi.org/10.1103/PhysRevB.78.214202}{doi:10.1103/PhysRevB.78.214202};
+\href{https://arxiv.org/abs/0809.4087v1}{arXiv:0809.4087v1}.
+
+\bibitem{frieze}
+Alan Frieze and Charalampos E. Tsourakakis,
+Some properties of random Apollonian networks,
+\emph{Internet Mathematics} \textbf{10} (2014), 162--187.
+\href{https://doi.org/10.1080/15427951.2013.796300}{doi:10.1080/15427951.2013.796300}.
+Preprint: \emph{High degree vertices, eigenvalues and diameter of random
+Apollonian networks},
+\href{https://arxiv.org/abs/1104.5259v3}{arXiv:1104.5259v3}, Theorem 2.
+
+\bibitem{serva}
+Maurizio Serva,
+Exactly solvable tight-binding model on the RAN: fractal energy spectrum
+and Bose--Einstein condensation,
+\emph{Journal of Statistical Mechanics: Theory and Experiment}
+(2014), P08018.
+\href{https://doi.org/10.1088/1742-5468/2014/08/P08018}{doi:10.1088/1742-5468/2014/08/P08018};
+\href{https://arxiv.org/abs/1402.4661v1}{arXiv:1402.4661v1}.
+
+\bibitem{source}
+The trureturing project,
+\emph{Second eigenvalue of the inner-face Apollonian stages}.
+\href{https://github.com/the-omega-institute/trureturing/blob/66d225eda69544653f1ca0e66cf3aea530b1a2c6/D5/S3/Combinatorics/Apollonian/SecondEigenvalueLimit.lean}{\texttt{SecondEigenvalueLimit.result}},
+\texttt{SecondEigenvalueLimit.lean}, revision
+\texttt{66d225eda69544653f1ca0e66cf3aea530b1a2c6}.
+\end{thebibliography}
+\end{document}

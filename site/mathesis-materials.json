@@ -1,0 +1,14 @@
+{
+  "schema": "mathesis.materials.v1",
+  "work": "radsarar-anando-2026-apollonian-second-eigenvalue",
+  "version": 2,
+  "repository_url": "https://github.com/mathesis-papers/6aec3851de92f716896248cd",
+  "site_url": "https://papers.trureturing.org/6aec3851de92f716896248cd/",
+  "doi": "10.5281/zenodo.23919071",
+  "reading": {
+    "en": "https://papers.trureturing.org/6aec3851de92f716896248cd/en/",
+    "zh": "https://papers.trureturing.org/6aec3851de92f716896248cd/zh/"
+  },
+  "slides": [],
+  "visualizations": []
+}

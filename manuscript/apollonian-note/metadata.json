@@ -1,0 +1,15 @@
+{
+  "id": "radsarar-anando-2026-apollonian-second-eigenvalue",
+  "revision": 2,
+  "problem_ids": ["radsarar-anando-2026-apollonian-second-eigenvalue"],
+  "topic": "MathOverflow 516405, revision 1: second ordinary adjacency eigenvalue and fixed-rank extreme spectrum of inner-face Apollonian networks",
+  "title": "MathOverflow 516405, revision 1: the second adjacency eigenvalue of Apollonian networks and the fixed-rank extreme spectrum",
+  "creators": [
+    {"name": "Ma, Haobo", "affiliation": "ChronoAI Pte Ltd, Singapore"},
+    {"name": "Zhang, Wenlin", "affiliation": "National University of Singapore; ChronoAI Pte Ltd, Singapore"}
+  ],
+  "abstract": "We prove the affirmative answer to MathOverflow question 516405, revision 1: the second ordinary adjacency eigenvalue of deterministic inner-face Apollonian networks divided by 2^(m/2) tends to sqrt(2). For every fixed rank r, the largest and smallest adjacency eigenvalues divided by 2^(m/2) converge to plus and minus sqrt(d_r), where the decreasing weight sequence consists of 3, three copies of 2, and 3^j copies of 3*2^(-j) for each j >= 1. An exact cutoff Gram identity gives a finite-stage bound and an O_r(2^(-m/4)) rate. The original second-eigenvalue limit is the scope of the pinned Lean declaration; the fixed-rank and quantitative extensions have written proofs.",
+  "summary": "An exact Gram identity and a birth-oriented remainder bound determine the fixed-rank extreme adjacency spectrum, including the proposed sqrt(2) second-eigenvalue limit and the square-root-of-degree relation.",
+  "license": "cc-by-4.0",
+  "evidence_url": "https://github.com/the-omega-institute/trureturing/blob/66d225eda69544653f1ca0e66cf3aea530b1a2c6/D5/S3/Combinatorics/Apollonian/SecondEigenvalueLimit.lean"
+}

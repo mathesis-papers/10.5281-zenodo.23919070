@@ -1,0 +1,62 @@
+{
+  "files": {
+    "pdf": {
+      "bytes": 91374,
+      "matches_public": null,
+      "path": "paper.pdf",
+      "public_sha256": null,
+      "sha256": "3dc8a6e240adcbfeecab9557eff87f6d8e03074540c1ee98300b2a91ea880093"
+    },
+    "source": {
+      "bytes": 12155,
+      "matches_public": null,
+      "path": "manuscript/",
+      "public_sha256": null,
+      "sha256": "9e1df1cece40ac4437e5f2788eaa76d5787ce82d06d3e754434e2c7c8144c982"
+    }
+  },
+  "source_identity": "Mathesis public projection",
+  "work": {
+    "abstract_text": "We prove the affirmative answer to MathOverflow question 516405, revision 1: the second ordinary adjacency eigenvalue of deterministic inner-face Apollonian networks divided by 2^(m/2) tends to sqrt(2). For every fixed rank r, the largest and smallest adjacency eigenvalues divided by 2^(m/2) converge to plus and minus sqrt(d_r), where the decreasing weight sequence consists of 3, three copies of 2, and 3^j copies of 3*2^(-j) for each j >= 1. An exact cutoff Gram identity gives a finite-stage bound and an O_r(2^(-m/4)) rate. The original second-eigenvalue limit is the scope of the pinned Lean declaration; the fixed-rank and quantitative extensions have written proofs.",
+    "authors": [
+      {
+        "affiliation": "ChronoAI Pte Ltd, Singapore",
+        "name": "Haobo Ma"
+      },
+      {
+        "affiliation": "National University of Singapore; ChronoAI Pte Ltd, Singapore",
+        "name": "Wenlin Zhang"
+      }
+    ],
+    "concept_doi": "10.5281/zenodo.23919070",
+    "current_version": 2,
+    "doi": "10.5281/zenodo.23919071",
+    "lean_source": {
+      "revision": "66d225eda69544653f1ca0e66cf3aea530b1a2c6",
+      "url": "https://github.com/the-omega-institute/trureturing/blob/66d225eda69544653f1ca0e66cf3aea530b1a2c6/D5/S3/Combinatorics/Apollonian/SecondEigenvalueLimit.lean"
+    },
+    "license": "CC-BY-4.0",
+    "msc": [],
+    "pdf": {
+      "url": "/api/v1/collected-papers/radsarar-anando-2026-apollonian-second-eigenvalue/files/pdf?version=2"
+    },
+    "previous_version": null,
+    "publication": "public",
+    "published_on": "2026-11-05T08:03:29.721355853Z",
+    "record": "radsarar-anando-2026-apollonian-second-eigenvalue",
+    "repository_name": "6aec3851de92f716896248cd",
+    "source": {
+      "url": "/api/v1/collected-papers/radsarar-anando-2026-apollonian-second-eigenvalue/files/source?version=2"
+    },
+    "title": "MathOverflow 516405, revision 1: the second adjacency eigenvalue of Apollonian networks and the fixed-rank extreme spectrum",
+    "versions": [
+      {
+        "previous_version": null,
+        "published_on": "2026-11-05T08:03:29.721355853Z",
+        "revision": "2",
+        "version": 2
+      }
+    ],
+    "work": "radsarar-anando-2026-apollonian-second-eigenvalue"
+  }
+}
