@@ -11,7 +11,8 @@
     "manuscript/apollonian-note/note.tex",
     "manuscript/apollonian-note/verify.py",
     "paper.json",
-    "paper.pdf"
+    "paper.pdf",
+    "source.archive"
   ],
   "generator_version": "0.1.0",
   "sha256": {
@@ -25,8 +26,9 @@
     "manuscript/apollonian-note/metadata.json": "564bfbdb168c7a4de4e4361e328abfa1d3ee179a5375316b1216964a76b0b583",
     "manuscript/apollonian-note/note.tex": "196dad33910384199f138cb84d254d0d985750ce1a347d034778e510f2c08be2",
     "manuscript/apollonian-note/verify.py": "85c8e5eba0233eeb4cee4702480563da3743f00e64901c904c3a36c6432474cf",
-    "paper.json": "cf98e2c803bef8cfae12f85689192dcd5ae707b8b5ae636ffc2f845328bdf901",
-    "paper.pdf": "3dc8a6e240adcbfeecab9557eff87f6d8e03074540c1ee98300b2a91ea880093"
+    "paper.json": "93a38a3d34f1698eb0ca2a5ab923df4045e1fc3685307e2eede06aa756179c1f",
+    "paper.pdf": "3dc8a6e240adcbfeecab9557eff87f6d8e03074540c1ee98300b2a91ea880093",
+    "source.archive": "9e1df1cece40ac4437e5f2788eaa76d5787ce82d06d3e754434e2c7c8144c982"
   },
-  "snapshot_identity": "6769145a449927d848468ac7bcb4b79dd3d32d998c12eceb6c4c00e8ab4879b9"
+  "snapshot_identity": "735c1bae22f8d00b667eb32f29d7889ac8d872e0c791db0c7dd0e5bcd8e5073e"
 }
