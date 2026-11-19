@@ -2,16 +2,16 @@
   "files": {
     "pdf": {
       "bytes": 91374,
-      "matches_public": null,
+      "matches_public": true,
       "path": "paper.pdf",
-      "public_sha256": null,
+      "public_sha256": "3dc8a6e240adcbfeecab9557eff87f6d8e03074540c1ee98300b2a91ea880093",
       "sha256": "3dc8a6e240adcbfeecab9557eff87f6d8e03074540c1ee98300b2a91ea880093"
     },
     "source": {
       "bytes": 12155,
-      "matches_public": null,
+      "matches_public": true,
       "path": "source.archive",
-      "public_sha256": null,
+      "public_sha256": "9e1df1cece40ac4437e5f2788eaa76d5787ce82d06d3e754434e2c7c8144c982",
       "sha256": "9e1df1cece40ac4437e5f2788eaa76d5787ce82d06d3e754434e2c7c8144c982"
     }
   },
@@ -38,6 +38,8 @@
     "license": "CC-BY-4.0",
     "msc": [],
     "pdf": {
+      "bytes": 91374,
+      "sha256": "3dc8a6e240adcbfeecab9557eff87f6d8e03074540c1ee98300b2a91ea880093",
       "url": "/api/v1/collected-papers/radsarar-anando-2026-apollonian-second-eigenvalue/files/pdf?version=2"
     },
     "previous_version": null,
@@ -46,6 +48,8 @@
     "record": "radsarar-anando-2026-apollonian-second-eigenvalue",
     "repository_name": "10.5281-zenodo.23919070",
     "source": {
+      "bytes": 12155,
+      "sha256": "9e1df1cece40ac4437e5f2788eaa76d5787ce82d06d3e754434e2c7c8144c982",
       "url": "/api/v1/collected-papers/radsarar-anando-2026-apollonian-second-eigenvalue/files/source?version=2"
     },
     "title": "MathOverflow 516405, revision 1: the second adjacency eigenvalue of Apollonian networks and the fixed-rank extreme spectrum",
